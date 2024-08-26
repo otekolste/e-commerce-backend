@@ -9,12 +9,12 @@ router.get('/', async (req, res) => {
   // be sure to include its associated Category and Tag data
   try {
     const productData = await Product.findAll({
-      include: [{ model: Category },{ model: Tag }],
+      include: [{ model: Category },{ model: Tag }], // Include all associated tags and associated category
     });
-    res.status(200).json(productData);
+    res.status(200).json(productData); // Return info as response
   }
   catch(e) {
-    res.status(500).json(e);
+    res.status(500).json(e); // Throw error if necessary
   }
 });
 
@@ -23,16 +23,16 @@ router.get('/:id', async (req, res) => {
   // find a single product by its `id`
   // be sure to include its associated Category and Tag data
   try {
-    const productData = await Product.findByPk(req.params.id, {
-      include: [{ model: Category } , { model: Tag }],
+    const productData = await Product.findByPk(req.params.id, { // Find corresponding product by ID passed in request
+      include: [{ model: Category } , { model: Tag }],  // Include all associated tags and associated category
     });
     if (!productData) {
-      res.status(404).json({ message: 'No category found with that id!' });
+      res.status(404).json({ message: 'No category found with that id!' }); // If it doesn't exist, throw error message and return
       return;
     }
-    res.status(200).json(productData);
+    res.status(200).json(productData); // Return info as response
   } catch (e) {
-    res.status(500).json(e);
+    res.status(500).json(e); // Throw error if necessary
   }
 });
 
@@ -46,6 +46,7 @@ router.post('/', (req, res) => {
       tagIds: [1, 2, 3, 4]
     }
   */
+ // The following code was provided by edX:
   Product.create(req.body)
     .then((product) => {
       // if there's product tags, we need to create pairings to bulk create in the ProductTag model
@@ -112,21 +113,21 @@ router.put('/:id', (req, res) => {
       res.status(400).json(err);
     });
 });
+// -- End code provided by edX
 
 router.delete('/:id', async (req, res) => {
   // delete one product by its `id` value
   try {
-    const productToDelete = await Product.findByPk(req.params.id);
+    const productToDelete = await Product.findByPk(req.params.id); // Find corresponding product by ID passed in request
     if (!productToDelete) {
-      res.status(404).json({ message: 'No category found with that id!' });
+      res.status(404).json({ message: 'No category found with that id!' }); // If it doesn't exist, throw error message and return
       return;
     }
-    await productToDelete.destroy();
-    res.status(200).json('Successfully deleted!');
+    await productToDelete.destroy(); // Delete product
+    res.status(200).json('Successfully deleted!'); // Return message on success
   }
   catch(e){
-    console.log(e);
-    res.status(400).json(e);
+    res.status(400).json(e); // Throw error if necessary
   }
 });
 

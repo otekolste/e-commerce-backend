@@ -42,7 +42,7 @@ Then, to start the server, simply run `node server` and the server will start up
 
 For templates for PUT and POST requests, look at the files in the `/seeds` folder.
 
-You can also look at the walkthrough video below.
+You can also look at the walkthrough video [here](https://drive.google.com/file/d/1DLUHyynuittGDQJuEdRNxm3fAj2zi2EG/view).
 
 ## Credits
 
